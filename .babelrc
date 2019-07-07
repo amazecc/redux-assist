@@ -8,5 +8,5 @@
         ],
         "@babel/preset-react"
     ],
-    "plugins": [["@babel/plugin-transform-typescript", {"isTSX": true}]]
+    "plugins": [["@babel/plugin-transform-typescript", { "isTSX": true }], ["@babel/plugin-proposal-decorators", { "legacy": true }], ["@babel/plugin-proposal-class-properties", { "loose": true }]]
 }

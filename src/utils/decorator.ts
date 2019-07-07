@@ -1,22 +1,20 @@
-import { SagaIterator } from "redux-saga";
-
-type IterableIteratorFunction = (...args: any[]) => IterableIterator<any>;
+type AsyncFunction = (...args: any[]) => Promise<any>;
 
 type NormalFunction<T = void> = (...args: any[]) => T;
 
-// typescript decorator for generator function
-export const generatorDecoratorCreator = (intercept: (f: IterableIteratorFunction) => SagaIterator) => {
-    return (target: object, propertyKey: PropertyKey, descriptor: TypedPropertyDescriptor<IterableIteratorFunction>) => {
+// typescript decorator for async function
+export const asyncDecoratorCreator = (intercept: (f: AsyncFunction) => Promise<any>) => {
+    return (target: object, propertyKey: PropertyKey, descriptor: TypedPropertyDescriptor<AsyncFunction>) => {
         const fn = descriptor.value;
-        descriptor.value = function*(...args: any[]) {
-            yield* intercept(fn!.bind(this, ...args));
+        descriptor.value = async function(...args: any[]) {
+            await intercept(fn!.bind(this, ...args));
         };
         return descriptor;
     };
 };
 
 // typescript decorator for normal function
-export const decoratorCreator = (intercept: (f: NormalFunction) => SagaIterator) => {
+export const decoratorCreator = (intercept: (f: NormalFunction) => void) => {
     return (target: object, propertyKey: PropertyKey, descriptor: TypedPropertyDescriptor<NormalFunction>) => {
         const fn = descriptor.value;
         descriptor.value = function(...args: any[]) {

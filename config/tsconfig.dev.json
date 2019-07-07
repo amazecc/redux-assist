@@ -13,7 +13,7 @@
         "noUnusedLocals": true,
         "downlevelIteration": true,
         "experimentalDecorators": true,
-        "baseUrl": "../",
     },
-    "include": ["../demo", "../src", "../script", "./"]
+    "include": ["../demo", "../src", "../script", "./"],
+    "exclude": ["../node_modules"]
 }

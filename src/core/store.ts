@@ -1,5 +1,5 @@
 import { createStore as createStoreRedux } from "redux";
-import { withDevtools } from "../utils/redux_devtools";
+// import { withDevtools } from "../utils/redux_devtools";
 import { Action, ActionType } from "./action";
 
 export const loadingKey = "@@default_key/loading";
@@ -22,7 +22,7 @@ function reducer(state = rootState, action: Action) {
 }
 
 export function createStore() {
-    return createStoreRedux(reducer, withDevtools);
+    return createStoreRedux(reducer);
 }
 
 export const store = createStore();

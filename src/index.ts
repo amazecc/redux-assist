@@ -1,6 +1,8 @@
+export { Provider } from "react-redux";
 export { register } from "./core/register";
 export { Module } from "./core/Module";
-export { withStore } from "./core/main";
+export { config } from "./core/config";
 export { helper } from "./utils/helper";
-export { generatorDecoratorCreator, decoratorCreator } from "./utils/decorator";
-export { getSetStateAction, getLoadingAction, Action } from "./core/action";
+export { store } from "./core/store";
+export { asyncDecoratorCreator, decoratorCreator } from "./utils/decorator";
+export { setStateActionCreator, loadingActionCreator } from "./core/action";

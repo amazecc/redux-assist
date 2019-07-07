@@ -1,23 +1,21 @@
-import { clientStore, loadingKey } from "../core/store";
-import { getLoadingAction } from "../core/action";
-import { generatorDecoratorCreator } from "./decorator";
-import { put } from "redux-saga/effects";
+import { store, loadingKey } from "../core/store";
+import { loadingActionCreator } from "../core/action";
+import { asyncDecoratorCreator } from "./decorator";
 
 export const helper = {
     getLoading(field: string): boolean | undefined {
-        return clientStore.getState()[loadingKey][field];
+        return store.getState()[loadingKey][field];
     },
-    updateLoading(loadings: object) {
-        return clientStore.dispatch(getLoadingAction(loadings));
+    setLoading(loadings: object) {
+        return store.dispatch(loadingActionCreator(loadings));
     },
-
     loading(field: string) {
-        return generatorDecoratorCreator(function*(fn) {
+        return asyncDecoratorCreator(async fn => {
             try {
-                yield put(getLoadingAction({ [field]: true }));
-                yield* fn();
+                store.dispatch(loadingActionCreator({ [field]: true }));
+                await fn();
             } finally {
-                yield put(getLoadingAction({ [field]: false }));
+                await store.dispatch(loadingActionCreator({ [field]: false }));
             }
         });
     }
