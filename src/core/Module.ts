@@ -3,7 +3,7 @@ import { setStateActionCreator } from "./action";
 
 export class Module<S extends object, R extends object = {}> {
     constructor(protected readonly moduleName: string, protected readonly initialState: S) {
-        this.setState.call(this, initialState);
+        this.setState(initialState);
     }
 
     public resetState() {
@@ -15,7 +15,7 @@ export class Module<S extends object, R extends object = {}> {
     }
 
     protected get state(): Readonly<S> {
-        return store.getState()[this.moduleName] as S;
+        return store.getState().app[this.moduleName] as S;
     }
 
     protected get rootState(): Readonly<R> {

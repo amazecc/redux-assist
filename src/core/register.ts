@@ -8,7 +8,7 @@ export function register<T extends object>(methodObj: T): T {
                 try {
                     return await value.apply(methodObj, args);
                 } catch (error) {
-                    config.sagaErrorHandler!(error);
+                    config.errorHandler(error);
                 }
             };
         } else {

@@ -15,7 +15,7 @@ const delay = (d: number) => new Promise(resolve => setTimeout(resolve, d));
 class TestMain extends Module<State, RootState> {
     @loading("loading +1")
     async add(numm: number) {
-        console.log("==> jiashu", numm);
+        console.log("==> jiashu", numm, this.rootState);
         const { num } = this.state;
         await delay(1000);
         this.setState({ num: num + 1 });

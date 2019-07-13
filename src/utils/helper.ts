@@ -1,4 +1,5 @@
-import { store, loadingKey } from "../core/store";
+import { store } from "../core/store";
+import { loadingKey } from "../core/ReducerManager";
 import { loadingActionCreator } from "../core/action";
 import { asyncDecoratorCreator } from "./decorator";
 
