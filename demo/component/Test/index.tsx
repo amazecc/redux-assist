@@ -52,6 +52,6 @@ class TestMain extends Module<State, RootState> {
     }
 }
 
-const sagas = register(new TestMain("TestMain", initialState));
+const actions = register(new TestMain("TestMain", initialState));
 
-export { Test, sagas };
+export { Test, actions };

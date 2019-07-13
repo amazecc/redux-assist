@@ -27,6 +27,7 @@ const App = () => {
     return (
         <Provider store={store}>
             <button
+                style={{marginLeft: 20}}
                 onClick={() => {
                     store.dispatch({
                         type: "inject",
@@ -36,7 +37,7 @@ const App = () => {
                     });
                 }}
             >
-                测试 inject reducer
+                test inject reducer
             </button>
             <Test />
         </Provider>
