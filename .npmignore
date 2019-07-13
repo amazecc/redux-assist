@@ -16,3 +16,4 @@ test
 tsconfig.json
 tslint.json
 yarn.lock
+.babelrc

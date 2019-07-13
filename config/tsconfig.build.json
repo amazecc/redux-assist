@@ -1,0 +1,10 @@
+{
+    "extends": "./tsconfig.dev.json",
+    "compilerOptions": {
+        "target": "esnext",
+        "outDir": "../lib",
+        "sourceMap": false,
+        "declaration": true,
+    },
+    "include": ["../src"]
+}
