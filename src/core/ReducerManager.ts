@@ -1,5 +1,4 @@
 import { combineReducers, Reducer, Store, ReducersMapObject } from "redux";
-// import { withDevtools } from "../utils/redux_devtools";
 import { Action, ActionType } from "./action";
 
 interface DefaultReducers {
