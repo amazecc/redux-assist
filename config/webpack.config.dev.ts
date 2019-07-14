@@ -1,10 +1,8 @@
 import * as path from "path";
 import * as webpack from "webpack";
-import * as WebpackDevServer from "webpack-dev-server";
 import * as HtmlWebpackPlugin from "html-webpack-plugin";
 
-// TODO: devServer type
-const config: webpack.Configuration & { devServer: WebpackDevServer.Configuration } = {
+const config: webpack.Configuration = {
     mode: "development",
     devtool: "inline-source-map",
     entry: path.resolve(__dirname, "../demo/index.tsx"),

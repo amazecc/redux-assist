@@ -1,7 +1,8 @@
 import * as React from "react";
+import { Provider } from "react-redux";
 import * as ReactDOM from "react-dom";
 import { Test } from "./component/Test";
-import { store, Provider, reducerManager, config } from "../src";
+import { store, reducerManager, config } from "../src";
 import { AnyAction } from "redux";
 
 config.errorHandler = (error: any) => {
@@ -27,7 +28,7 @@ const App = () => {
     return (
         <Provider store={store}>
             <button
-                style={{marginLeft: 20}}
+                style={{ marginLeft: 20 }}
                 onClick={() => {
                     store.dispatch({
                         type: "inject",

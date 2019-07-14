@@ -4,7 +4,7 @@
         "target": "esnext",
         "outDir": "../lib",
         "sourceMap": false,
-        "declaration": true,
+        "declaration": true
     },
     "include": ["../src"]
 }
