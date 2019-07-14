@@ -14,7 +14,7 @@ export const helper = {
         return asyncDecoratorCreator(async fn => {
             try {
                 store.dispatch(loadingActionCreator({ [field]: true }));
-                await fn();
+                return await fn();
             } finally {
                 await store.dispatch(loadingActionCreator({ [field]: false }));
             }

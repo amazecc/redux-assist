@@ -7,7 +7,7 @@ export const asyncDecoratorCreator = (intercept: (f: AsyncFunction) => Promise<a
     return (target: object, propertyKey: PropertyKey, descriptor: TypedPropertyDescriptor<AsyncFunction>) => {
         const fn = descriptor.value;
         descriptor.value = async function(...args: any[]) {
-            await intercept(fn!.bind(this, ...args));
+            return await intercept(fn!.bind(this, ...args));
         };
         return descriptor;
     };
@@ -18,7 +18,7 @@ export const decoratorCreator = (intercept: (f: NormalFunction) => void) => {
     return (target: object, propertyKey: PropertyKey, descriptor: TypedPropertyDescriptor<NormalFunction>) => {
         const fn = descriptor.value;
         descriptor.value = function(...args: any[]) {
-            intercept(fn!.bind(this, ...args));
+            return intercept(fn!.bind(this, ...args));
         };
         return descriptor;
     };
