@@ -99,19 +99,21 @@ export const Test = connect(mapStateToProps)(TestBase);
 
 该类为数据与 `redux` 之间的桥梁，主要提供了以下功能：
 
--   **setState**: Function
-    更新模块中的数据，里面直接使用了 `store.dispatch`，所以是同步的
+- 	**setState**: Function
+
+	更新模块中的数据，里面直接使用了 `store.dispatch`，所以是同步的
+    
 -   **resetState**: Function
 
-        	以初始值重置该模块内的数据
+    以初始值重置该模块内的数据
 
 -   **state**: Getter
 
-        	获取当前模块中的数据
+  	获取当前模块中的数据
 
 -   **rootState**: Getter
 
-        	获取 `store` 中的所有数据
+    获取 `store` 中的所有数据
 
 ### register (Function)
 
@@ -129,17 +131,17 @@ export const Test = connect(mapStateToProps)(TestBase);
 
 辅助方法集合，主要有一下方法：
 
--   **getLoading**
+-	 **getLoading**
 
-        	获取 `loading` 参数的值
+    获取 `loading` 参数的值
 
 -   **setLoading**
 
-        	设置 `loading` 参数的值
+    设置 `loading` 参数的值
 
 -   **loading**
 
-        	该方法为装饰器，使用在 Module 子类类方法，用于异步请求时，设置一个加载中的变量，组件可根据该变量的值，显示加载中的UI
+    该方法为装饰器，使用在 Module 子类类方法，用于异步请求时，设置一个加载中的变量，组件可根据该变量的值，显示加载中的UI
 
 ---
 
