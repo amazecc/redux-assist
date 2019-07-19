@@ -127,11 +127,21 @@ export const Test = connect(mapStateToProps)(TestBase);
 
 通过 `reducerManager.injectReducers(reducers)` 可动态插入 `reducer`，实现模块数据的按需加载
 
+### config
+
+可以使用以下方式统一捕获 `Module` 子类方法的异常
+
+```js
+config.errorHandler = error => {
+    console.error("[[捕获错误]]：", error);
+};
+```
+
 ### helper
 
 辅助方法集合，主要有一下方法：
 
--	 **getLoading**
+-   **getLoading**
 
     获取 `loading` 参数的值
 
