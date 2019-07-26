@@ -60,11 +60,11 @@ class TestMain extends Module {
 export const actions = register(new TestMain("TestMain", initialState));
 ```
 
-每创建一个 `Module` 子类的实例，就会在 `store` 中创建一个命名空间，所有的模块全部放在 `app` 命名空间中，以上在 `store` 中的结构为：
+每创建一个 `Module` 子类的实例，就会在 `store` 中创建一个命名空间，所有的模块全部放在 `root` 命名空间中，以上在 `store` 中的结构为：
 
 ```js
 {
-	app: {
+	root: {
 		TestMain: {
 			num: 0,
 			list: []
@@ -87,7 +87,7 @@ class TestBase extends React.PureComponent {
 }
 
 const mapStateToProps = state => {
-    return { num: state.app.TestMain.num };
+    return { num: state.root.TestMain.num };
 };
 
 export const Test = connect(mapStateToProps)(TestBase);

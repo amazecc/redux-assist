@@ -2,7 +2,7 @@ import { combineReducers, Reducer, Store, ReducersMapObject } from "redux";
 import { Action, ActionType } from "./action";
 
 interface DefaultReducers {
-    app: Reducer<object, Action>;
+    root: Reducer<object, Action>;
     "@@default_key/loading": Reducer<object, Action>;
 }
 
@@ -16,7 +16,7 @@ export class ReducerManager {
     constructor() {
         this.reducers = {
             [loadingKey]: this.loadingReducer,
-            app: this.coreReducer
+            root: this.coreReducer
         };
     }
 
@@ -49,9 +49,6 @@ export class ReducerManager {
     }
 
     injectReducers(reducers: ReducersMapObject) {
-        if (ReducerManager.store === null) {
-            throw new Error("redux store 未初始化");
-        }
         if (this.checkNoRepeatReducer(reducers)) {
             Object.assign(this.reducers, reducers);
             ReducerManager.store!.replaceReducer(combineReducers(this.reducers));

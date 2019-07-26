@@ -15,7 +15,7 @@ export class Module<S extends object, R extends object = {}> {
     }
 
     protected get state(): Readonly<S> {
-        return store.getState().app[this.moduleName] as S;
+        return store.getState().root[this.moduleName] as S;
     }
 
     protected get rootState(): Readonly<R> {

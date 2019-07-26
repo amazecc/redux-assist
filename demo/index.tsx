@@ -22,6 +22,16 @@ setTimeout(() => {
             return state;
         }
     });
+
+    reducerManager.injectReducers({
+        injectTest2(state: object = {number: 2}, action: AnyAction) {
+            if (action.type === "inject") {
+                return { ...state, ...action.payload };
+            }
+            return state;
+        }
+    });
+
 }, 1000);
 
 const App = () => {
