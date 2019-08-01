@@ -7,3 +7,7 @@ export function mapObject<T, R>(obj: T, callback: (key: keyof T, value: T[keyof 
         {} as Record<keyof T & string, R>
     );
 }
+
+export function isDevelopment() {
+    return process.env.NODE_ENV === "development";
+}

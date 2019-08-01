@@ -7,8 +7,8 @@ export const helper = {
     getLoading(field: string): boolean | undefined {
         return store.getState()[loadingKey][field];
     },
-    setLoading(loadings: object) {
-        return store.dispatch(loadingActionCreator(loadings));
+    setLoading(loadings: { [k: string]: boolean }) {
+        store.dispatch(loadingActionCreator(loadings));
     },
     loading(field: string) {
         return asyncDecoratorCreator(async fn => {

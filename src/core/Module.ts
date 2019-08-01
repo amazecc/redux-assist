@@ -14,11 +14,11 @@ export class Module<S extends object, R extends object = {}> {
         store.dispatch(setStateActionCreator(this.moduleName, state));
     }
 
-    protected get state(): Readonly<S> {
-        return store.getState().root[this.moduleName] as S;
+    protected get state() {
+        return store.getState().root[this.moduleName] as Readonly<S>;
     }
 
-    protected get rootState(): Readonly<R> {
-        return store.getState() as R;
+    protected get rootState() {
+        return (store.getState() as unknown) as Readonly<R>;
     }
 }
