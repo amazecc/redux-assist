@@ -9,9 +9,8 @@ const proxyObjectHandler: ProxyHandler = (obj, callback) =>
 
 const definePropertyHandler: ProxyHandler = (obj, callback) => {
     const o = {} as typeof obj;
-    // Object.getPrototypeOf support IE9 and higher: https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/GetPrototypeOf
-    Object.keys(Object.getPrototypeOf(obj)).forEach(key => {
-        if (obj[key] instanceof Function && key !== "constructor") {
+    Object.getOwnPropertyNames(Object.getPrototypeOf(obj)).forEach(key => {
+        if (key !== "constructor") {
             o[key] = obj[key];
             Object.defineProperty(obj, key, {
                 get() {
