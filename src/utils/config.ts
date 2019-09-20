@@ -1,4 +1,4 @@
-import { isDevelopment } from "../utils/utils";
+import { isDevelopment } from "./utils";
 
 interface Config {
     errorHandler: (error: any) => void;

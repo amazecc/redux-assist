@@ -5,8 +5,23 @@ import { Test } from "./component/Test";
 import { createStore, reducerManager } from "../src";
 import { AnyAction } from "redux";
 
+// redux middleware
+const middleware1 = () => (next: any) => (action: any) => {
+    console.log(1);
+    next(action);
+    console.log(2);
+};
+
+const middleware2 = () => (next: any) => (action: any) => {
+    console.log(3);
+    next(action);
+    console.log(4);
+};
+
 const store = createStore({
-    errorHandler(error: any) {
+    initialState: { root: { a: 321 } },
+    middleware: [middleware1, middleware2],
+    onError(error: any) {
         console.error("[[捕获错误]]：", error);
     }
 });

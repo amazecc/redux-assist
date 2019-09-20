@@ -39,16 +39,16 @@ export class ReducerManager {
         const extitKeys = Object.keys(this.reducers);
         const repeatKeys = reducersKeys.filter(_ => extitKeys.includes(_));
         if (repeatKeys.length > 0) {
-            throw new Error(`reducer { ${repeatKeys.join(",")} } 在 store 中已定义`);
+            throw new Error(`reducer { ${repeatKeys.join(",")} } is already exists`);
         }
         return repeatKeys.length === 0;
     }
 
-    getReducers() {
+    public getReducers() {
         return combineReducers(this.reducers);
     }
 
-    injectReducers(reducers: ReducersMapObject) {
+    public injectReducers(reducers: ReducersMapObject) {
         if (this.checkNoRepeatReducer(reducers)) {
             Object.assign(this.reducers, reducers);
             ReducerManager.store!.replaceReducer(combineReducers(this.reducers));

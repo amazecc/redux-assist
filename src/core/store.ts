@@ -1,17 +1,17 @@
 import { createStore as reduxCreateStore, applyMiddleware, Store, Middleware } from "redux";
 import { withMiddlewareDevtools, withDevtools } from "../utils/redux_devtools";
 import { ReducerManager } from "./ReducerManager";
-import { registerAllModule } from "./register";
-import { config } from "./config";
+import { registeredAllModule } from "./register";
+import { config } from "../utils/config";
 
 export const reducerManager = new ReducerManager();
 
 export let store!: Store;
 
 interface Options {
-    initialState?: object;
+    initialState?: { root: object };
     middleware?: Middleware[];
-    errorHandler?: (error: any) => void;
+    onError?: (error: any) => void;
 }
 
 export const createStore = (options: Options = {}) => {
@@ -20,10 +20,10 @@ export const createStore = (options: Options = {}) => {
     ReducerManager.store = storeInstance;
     store = storeInstance;
     // initial state for all module
-    registerAllModule.forEach(_ => _.resetState());
+    registeredAllModule.forEach(_ => _.resetState());
     // set global error handler function
-    if (options.errorHandler) {
-        config.errorHandler = options.errorHandler;
+    if (options.onError) {
+        config.errorHandler = options.onError;
     }
     return store;
 };
