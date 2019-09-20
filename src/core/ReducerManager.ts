@@ -1,17 +1,12 @@
-import { combineReducers, Reducer, Store, ReducersMapObject } from "redux";
+import { combineReducers, Store, ReducersMapObject, AnyAction } from "redux";
 import { Action, ActionType } from "./action";
-
-interface DefaultReducers {
-    root: Reducer<object, Action>;
-    "@@default_key/loading": Reducer<object, Action>;
-}
 
 export const loadingKey = "@@default_key/loading";
 
 export class ReducerManager {
-    static store: Store | null;
+    static store: Store<any, Action> | null;
 
-    private readonly reducers: DefaultReducers;
+    private readonly reducers: ReducersMapObject<any, Action>;
 
     constructor() {
         this.reducers = {
@@ -48,7 +43,7 @@ export class ReducerManager {
         return combineReducers(this.reducers);
     }
 
-    public injectReducers(reducers: ReducersMapObject) {
+    public injectReducers(reducers: ReducersMapObject<any, AnyAction>) {
         if (this.checkNoRepeatReducer(reducers)) {
             Object.assign(this.reducers, reducers);
             ReducerManager.store!.replaceReducer(combineReducers(this.reducers));

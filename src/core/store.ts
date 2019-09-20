@@ -3,10 +3,11 @@ import { withMiddlewareDevtools, withDevtools } from "../utils/redux_devtools";
 import { ReducerManager } from "./ReducerManager";
 import { registeredAllModule } from "./register";
 import { config } from "../utils/config";
+import { Action } from "./action";
 
 export const reducerManager = new ReducerManager();
 
-export let store!: Store;
+export let store!: Store<any, Action<any>>;
 
 interface Options {
     initialState?: { root: object };

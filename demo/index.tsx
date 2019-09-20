@@ -41,7 +41,7 @@ setTimeout(() => {
     });
 
     reducerManager.injectReducers({
-        injectTest2(state: object = { number: 2 }, action: AnyAction) {
+        injectTest2(state: object = { number: 2 }, action) {
             if (action.type === "inject") {
                 return { ...state, ...action.payload };
             }

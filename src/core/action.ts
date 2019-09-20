@@ -5,7 +5,7 @@ export enum ActionType {
     "LOADING_STATE" = "@@LOADING_STATE"
 }
 
-export interface Action extends ReduxAction<ActionType> {
+export interface Action<A = ActionType> extends ReduxAction<A> {
     module?: string;
     payload: object;
 }
