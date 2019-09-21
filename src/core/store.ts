@@ -1,7 +1,7 @@
 import { createStore as reduxCreateStore, applyMiddleware, Store, Middleware } from "redux";
 import { withMiddlewareDevtools, withDevtools } from "../utils/redux_devtools";
 import { ReducerManager } from "./ReducerManager";
-import { registeredAllModule } from "./register";
+import { modulesCreatedBeforeStore } from "./register";
 import { config } from "../utils/config";
 import { Action } from "./action";
 
@@ -21,7 +21,7 @@ export const createStore = (options: Options = {}) => {
     ReducerManager.store = storeInstance;
     store = storeInstance;
     // initial state for all module
-    registeredAllModule.forEach(_ => _.resetState());
+    modulesCreatedBeforeStore.forEach(_ => _.resetState());
     // set global error handler function
     if (options.onError) {
         config.errorHandler = options.onError;

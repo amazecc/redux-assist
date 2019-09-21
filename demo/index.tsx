@@ -27,12 +27,8 @@ const store = createStore({
 });
 
 setTimeout(() => {
-    const initialState = {
-        number: 0
-    };
-
     reducerManager.injectReducers({
-        injectTest(state: object = initialState, action: AnyAction) {
+        injectTest(state = { number: 0 }, action: AnyAction) {
             if (action.type === "inject") {
                 return { ...state, ...action.payload };
             }
@@ -41,7 +37,7 @@ setTimeout(() => {
     });
 
     reducerManager.injectReducers({
-        injectTest2(state: object = { number: 2 }, action) {
+        injectTest2(state = { number: 2 }, action: AnyAction) {
             if (action.type === "inject") {
                 return { ...state, ...action.payload };
             }

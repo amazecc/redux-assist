@@ -1,4 +1,4 @@
-import { combineReducers, Store, ReducersMapObject, AnyAction } from "redux";
+import { combineReducers, Store, ReducersMapObject } from "redux";
 import { Action, ActionType } from "./action";
 
 export const loadingKey = "@@default_key/loading";
@@ -43,7 +43,7 @@ export class ReducerManager {
         return combineReducers(this.reducers);
     }
 
-    public injectReducers(reducers: ReducersMapObject<any, AnyAction>) {
+    public injectReducers(reducers: ReducersMapObject) {
         if (this.checkNoRepeatReducer(reducers)) {
             Object.assign(this.reducers, reducers);
             ReducerManager.store!.replaceReducer(combineReducers(this.reducers));

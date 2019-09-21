@@ -22,22 +22,22 @@ yarn add redux-assist
 
 # 简单使用
 
-> `Typescript` 的使用请看 `demo`
-
 以模块为管理单元，一个模块使用一个 Module 类来管理 `store` 中的值，`Module` 类中提供了获取，修改，重置该模块数据的方法，如下：
 
 ```js
-const initialState = {
+const initialState: State = {
     num: 0,
     list: []
 };
 
-class TestMain extends Module {
+class TestMain extends Module<State, RootState> {
     async getState(numm: number) {
+    	//	获取当前模块的数据
         conso.log(this.state);
     }
 
     async getRootState() {
+    	// 获取 store 中所有的数据
         console.log(this.rootState);
     }
 
@@ -47,6 +47,7 @@ class TestMain extends Module {
     }
 
     async reset() {
+  		// 重置当前模块的数据
         this.resetState();
     }
 
@@ -57,7 +58,7 @@ class TestMain extends Module {
     }
 }
 
-export const actions = register(new TestMain("TestMain", initialState));
+export const actions = register(new TestMain("TestMain" /* 模块名 */, initialState /* 模块初始值 */));
 ```
 
 每创建一个 `Module` 子类的实例，就会在 `store` 中创建一个命名空间，所有的模块全部放在 `root` 命名空间中，以上在 `store` 中的结构为：
@@ -80,24 +81,30 @@ export const actions = register(new TestMain("TestMain", initialState));
 ```jsx
 import { actions } from "path...";
 
-class TestBase extends React.PureComponent {
+interface StateProps {
+	number: number
+}
+
+interface Props extends StateProps {}
+
+class TestComponent extends React.PureComponent<Props> {
     render() {
         return <button onClick={() => actions.getList()}>获取列表</button>;
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: RootState): StateProps => {
     return { num: state.root.TestMain.num };
 };
 
-export const Test = connect(mapStateToProps)(TestBase);
+export const Test = connect(mapStateToProps)(TestComponent);
 ```
 
 # API
 
 ### Module (Class)
 
-该类为数据与 `redux` 之间的桥梁，主要提供了以下功能：
+该类提供操作 `store` 的方法，主要提供了以下功能：
 
 - 	**setState**: Function
 
@@ -105,7 +112,7 @@ export const Test = connect(mapStateToProps)(TestBase);
     
 -   **resetState**: Function
 
-    以初始值重置该模块内的数据
+    以初始值重置该模块内的数据；可传入字段数组，代表跳过这些字段值的重置，例：`this.resetState(["num"])`，表示除去 `num` 字段，其他字段都重置为初始值
 
 -   **state**: Getter
 
@@ -117,41 +124,65 @@ export const Test = connect(mapStateToProps)(TestBase);
 
 ### register (Function)
 
-主要作用为代理 `Modal` 子类方法的执行，实现了获取所有类方法的异常，易于统一处理异常信息
-
-### store
-
-`redux` `store`的实例
+主要作用为代理 `Modulel` 子类方法的执行，实现了获取所有类方法的异常，易于统一处理异常信息
 
 ### reducerManager
 
-通过 `reducerManager.injectReducers(reducers)` 可动态插入 `reducer`，实现模块数据的按需加载
+通过 `reducerManager.injectReducers(reducers)` 可动态插入 `reducer`，实现模块数据的按需加载，一般用于兼容 `redux` 原始写法
 
-### config
+当前使用 ` register(new TestMain("TestMain" /* 模块名 */, initialState /* 模块初始值 */));` 的方式本就实现了动态注入模块数据，`reducerManager` 可理解为动态注入其他 `reducer`
 
-可以使用以下方式统一捕获 `Module` 子类方法的异常
+### createStore
+
+创建 `store` 实例
+
+- **initialState**: object
+
+	`store` 初始值，必须为 `{ root: {...} }`, 因为所有的模块数据都在 `root` 命名空间内
+	
+- **middleware**: Array
+
+	`redux` 中间件
+	
+- **onError**: Function
+
+	所有 `Module` 子类方法的全局错误捕获函数
 
 ```js
-config.errorHandler = error => {
-    console.error("[[捕获错误]]：", error);
-};
+const store = createStore({
+    initialState: { root: { a: 321 } },
+    middleware: [middleware1, middleware2],
+    onError(error: any) {
+        console.error("[[捕获错误]]：", error);
+    }
+})
 ```
+
+### 
 
 ### helper
 
 辅助方法集合，主要有一下方法：
 
--   **getLoading**
+-   **getLoading**: Function
 
     获取 `loading` 参数的值
+    
+    ```js
+    helper.getLoading("loading") // "loading" 字符串 为 helper.loading 设置的值
+    ```
 
--   **setLoading**
+-   **setLoading**: Function
 
     设置 `loading` 参数的值
+    
+    ```js
+    helper.setLoading("loading") // 设置 "loading" 字段的值
+    ```
 
--   **loading**
+-   **loading**: Decorator
 
-    该方法为装饰器，使用在 Module 子类类方法，用于异步请求时，设置一个加载中的变量，组件可根据该变量的值，显示加载中的UI
+    该方法为装饰器，使用在 Module 子类类方法，用于异步请求时，设置一个加载中的变量，组件可根据该变量的值，显示加载中的UI，用法如下：
 
 ---
 
