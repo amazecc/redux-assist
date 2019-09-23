@@ -5,7 +5,7 @@ import { Module } from "./Module";
 
 export const modulesCreatedBeforeStore: Array<() => void> = [];
 
-export function register<T extends Module<any>>(methodObj: T): { pureActions: T; actions: T } {
+export function register<T extends Module<any>>(methodObj: T): T & { _pure_: T } {
     // Store the module initialization method created before the store, execute after the store is created
     if (!store) {
         modulesCreatedBeforeStore.push(methodObj.resetState.bind(methodObj));
@@ -24,5 +24,5 @@ export function register<T extends Module<any>>(methodObj: T): { pureActions: T;
             return value;
         }
     });
-    return { pureActions, actions };
+    return Object.assign(actions, { _pure_: pureActions });
 }

@@ -52,6 +52,6 @@ class TestMain extends Module<State, RootState> {
     }
 }
 
-const { actions, pureActions } = register(new TestMain("TestMain", initialState));
+const actions = register(new TestMain("TestMain", initialState));
 
-export { Test, actions, pureActions };
+export { Test, actions };

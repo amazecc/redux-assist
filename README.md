@@ -126,6 +126,14 @@ export const Test = connect(mapStateToProps)(TestComponent);
 
 主要作用为代理 `Modulel` 子类方法的执行，实现了获取所有类方法的异常，易于统一处理异常信息
 
+```js
+const actions = register(new TestMain("TestMain", initialState));
+
+actions.getList(); // 为包含全局错误捕获程序的方法，这种用法用在 Module 子类外部
+
+actions._pure_.getList(); // 不包含全局错误捕获程序的方法，这种方法用在 Module 子类内部，比如在其他模块内调用该方法
+```
+
 ### reducerManager
 
 通过 `reducerManager.injectReducers(reducers)` 可动态插入 `reducer`，实现模块数据的按需加载，一般用于兼容 `redux` 原始写法
