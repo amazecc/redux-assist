@@ -5,18 +5,18 @@ import { asyncDecoratorCreator } from "./decorator";
 
 export const helper = {
     getLoading(field: string): boolean | undefined {
-        return store.getState()[loadingKey][field];
+        return store!.getState()[loadingKey][field];
     },
     setLoading(loadings: { [k: string]: boolean }) {
-        store.dispatch(loadingActionCreator(loadings));
+        store!.dispatch(loadingActionCreator(loadings));
     },
     loading(field: string) {
         return asyncDecoratorCreator(async fn => {
             try {
-                store.dispatch(loadingActionCreator({ [field]: true }));
+                store!.dispatch(loadingActionCreator({ [field]: true }));
                 return await fn();
             } finally {
-                await store.dispatch(loadingActionCreator({ [field]: false }));
+                await store!.dispatch(loadingActionCreator({ [field]: false }));
             }
         });
     }

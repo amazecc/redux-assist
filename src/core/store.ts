@@ -7,7 +7,7 @@ import { Action } from "./action";
 
 export const reducerManager = new ReducerManager();
 
-export let store!: Store<any, Action<any>>;
+export let store: Store<any, Action<any>> | null = null;
 
 interface Options {
     initialState?: { root: object };
@@ -21,7 +21,7 @@ export const createStore = (options: Options = {}) => {
     ReducerManager.store = storeInstance;
     store = storeInstance;
     // initial state for all module
-    modulesCreatedBeforeStore.forEach(_ => _.resetState());
+    modulesCreatedBeforeStore.forEach(initialState => initialState());
     // set global error handler function
     if (options.onError) {
         config.errorHandler = options.onError;
