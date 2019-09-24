@@ -1,8 +1,10 @@
+import { config } from "./config";
+
 type ProxyHandler = <T extends object>(obj: T, callback: (value: any) => T[keyof T]) => { before: T; after: T };
 
 const createError = (errorInfo: { target: any; key: string; value: any }) => {
     return {
-        message: "[[ redux-assist caught exception]]: It is forbidden to set the variable of Module",
+        errorMessage: "Prohibit update Module variables outside",
         ...errorInfo
     };
 };
@@ -14,8 +16,8 @@ const proxyObjectHandler: ProxyHandler = (obj, callback) => {
         },
         set(target, key, value, receiver) {
             // _pure_ created in file register.ts
-            if (key !== "_pure_") {
-                throw createError({ target, key: key as string, value });
+            if (key !== "_pure_" && key in target) {
+                config.errorHandler(createError({ target, key: key as string, value }));
             }
             return Reflect.set(target, key, value, receiver);
         }
@@ -38,16 +40,16 @@ const definePropertyHandler: ProxyHandler = (obj, callback) => {
                     return callback.call(obj, obj[key]);
                 },
                 set(value) {
-                    throw createError({ target: obj, key: key as string, value });
+                    config.errorHandler(createError({ target: obj, key: key as string, value }));
                 }
             });
         }
     });
-    // Its own property settings, the behavior is the same as the Proxy
+    // Its own property settings, make the behavior is the same as the Proxy
     Object.keys(after).forEach(key => {
         Object.defineProperty(after, key, {
             set(value) {
-                throw createError({ target: obj, key: key as string, value });
+                config.errorHandler(createError({ target: obj, key: key as string, value }));
             }
         });
     });
