@@ -48,6 +48,9 @@ const definePropertyHandler: ProxyHandler = (obj, callback) => {
     // Its own property settings, make the behavior is the same as the Proxy
     Object.keys(after).forEach(key => {
         Object.defineProperty(after, key, {
+            get() {
+                return obj[key];
+            },
             set(value) {
                 config.errorHandler(createError({ target: obj, key: key as string, value }));
             }
