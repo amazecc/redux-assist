@@ -2,7 +2,7 @@ import { config } from "../utils/config";
 import { store } from "./store";
 import { proxy } from "../utils/proxy";
 import { Module } from "./Module";
-import { PickType } from "src/type";
+import { PickType } from "../type";
 
 type PureActions<T> = PickType<T, (...args: any[]) => void>;
 
