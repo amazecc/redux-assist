@@ -13,8 +13,6 @@ const initialState: State = {
 const delay = (d: number) => new Promise(resolve => setTimeout(resolve, d));
 
 class TestMain extends Module<State, RootState> {
-    a=0
-
     @loading("loading +1")
     async add(numm: number) {
         console.log("==> jiashu", numm);
@@ -55,9 +53,5 @@ class TestMain extends Module<State, RootState> {
 }
 
 const actions = register(new TestMain("TestMain", initialState));
-
-console.log("==> a", actions);
-
-actions.a = 1;
 
 export { Test, actions };
