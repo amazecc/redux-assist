@@ -4,11 +4,16 @@ import { proxy } from "../utils/proxy";
 import { Module } from "./Module";
 import { PickType } from "../type";
 
-type PureActions<T> = PickType<T, (...args: any[]) => void>;
+interface PureActions<T> {
+    /**
+     * Used in other modules, does not contain exception catchers
+     */
+    _pure_: PickType<T, (...args: any[]) => void>;
+}
 
 export const modulesCreatedBeforeStore: Array<() => void> = [];
 
-export function register<T extends Module<any>>(methodObj: T): T & { _pure_: PureActions<T> } {
+export function register<T extends Module<any>>(methodObj: T): T & PureActions<T> {
     // Store the module initialization method created before the store, execute after the store is created
     if (!store) {
         modulesCreatedBeforeStore.push(methodObj.resetState.bind(methodObj));
