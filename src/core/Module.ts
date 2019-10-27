@@ -26,7 +26,7 @@ export class Module<S extends object, R extends object = {}> {
         this.setState(finalState);
     }
 
-    protected setState(state: Partial<S>) {
+    protected setState<K extends keyof S>(state: Pick<S, K>) {
         store!.dispatch(setStateActionCreator(this.moduleName, state));
     }
 

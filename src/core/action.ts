@@ -10,7 +10,7 @@ export interface Action<A = ActionType> extends ReduxAction<A> {
     payload: object;
 }
 
-export const setStateActionCreator = <T extends object>(module: string, payload: Partial<T>) => ({
+export const setStateActionCreator = (module: string, payload: object) => ({
     type: ActionType.SET_STATE,
     module,
     payload
