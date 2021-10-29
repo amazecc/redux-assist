@@ -15,7 +15,7 @@ export class DemoBase extends React.PureComponent<Props> {
         const { loading } = this.props;
         return (
             <div style={{ padding: 20 }}>
-                <button style={{ marginRight: 10 }} onClick={() => actions.add(22)}>
+                <button style={{ marginRight: 10 }} onClick={() => actions.add()}>
                     add 1 {loading ? "加载中..." : ""}
                 </button>
                 <button style={{ marginRight: 10 }} onClick={actions.minus}>
@@ -29,9 +29,6 @@ export class DemoBase extends React.PureComponent<Props> {
                 </button>
                 <button style={{ marginRight: 10 }} onClick={actions.getRootState}>
                     get root state
-                </button>
-                <button style={{ marginRight: 10 }} onClick={actions.error}>
-                    trigger error
                 </button>
                 <div style={{ marginTop: 20 }}>
                     <pre>{JSON.stringify(this.props.state, null, 4)}</pre>

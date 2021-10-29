@@ -12,8 +12,7 @@ const delay = (d: number) => new Promise(resolve => setTimeout(resolve, d));
 
 class DemoModule extends Module<State> {
     @Loading("loading +1")
-    async add(numm: number) {
-        console.log("==> jiashu", numm);
+    async add() {
         const { num } = this.state;
         await delay(1000);
         this.setState({ num: num + 1 });
@@ -40,7 +39,7 @@ class DemoModule extends Module<State> {
     }
 
     async getRootState() {
-        await console.log(this.globalState);
+        console.log(this.globalState);
     }
 
     @Loading("trigger error")

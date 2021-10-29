@@ -15,7 +15,7 @@ export const decoratorCreator = (intercept: (f: NormalFunction, ...args: any) =>
 
 /** loading 装饰器 */
 export const Loading = (field: string) => {
-    return decoratorCreator(async function (this: Module<any>, fn) {
+    return decoratorCreator(async function (this: Module, fn) {
         try {
             this.store.dispatch(loadingActionCreator({ [field]: true }));
             return await fn();

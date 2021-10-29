@@ -12,7 +12,8 @@ export const reducer: Reducer<GlobalState, Action> = (state = { "@@LOADING": {} 
         return { ...state, "@@LOADING": { ...state["@@LOADING"], ...action.payload } };
     }
     if (action.type === "@@INJECT_STATE") {
-        return { ...state, [action.moduleName!]: { ...action.payload } };
+        // 模块数据初始化不需要复制
+        return { ...state, [action.moduleName!]: action.payload };
     }
     if (action.type === "@@SET_STATE") {
         // 没有做扩展覆盖操作是因为 payload 在 Module 中使用 immer 处理，发送的就是当前模块完整的数据，并且是新的引用

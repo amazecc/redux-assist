@@ -3,7 +3,7 @@ import { injectStateActionCreator, setStateActionCreator } from "./action";
 import type { Store } from "./store";
 import type { AnyPlainObject } from "../type";
 
-export abstract class Module<S extends AnyPlainObject> {
+export abstract class Module<S extends AnyPlainObject = AnyPlainObject> {
     /**
      * 以上下文为 store 实例化 Module 子类
      * @description 在子类中实现

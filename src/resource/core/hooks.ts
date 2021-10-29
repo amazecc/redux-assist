@@ -3,6 +3,7 @@ import { loadingReducerKey } from "./store";
 import type { GlobalState } from "./store";
 import type { AnyPlainObject } from "../type";
 
+/** 获取 loading 字段值 */
 export function useLoading(fieldName: string): boolean | undefined {
     return useSelector(globalState => globalState[loadingReducerKey][fieldName]);
 }

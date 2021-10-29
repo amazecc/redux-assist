@@ -8,4 +8,4 @@ export { decoratorCreator, Loading } from "./utils/decorator";
 export { bindThis } from "./utils/utils";
 
 // nextjs 服务端渲染使用
-export {useCreateStore} from './server'
+export { useCreateStore } from "./server";
