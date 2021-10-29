@@ -14,7 +14,8 @@ script
 .prettierrc
 test
 tsconfig.json
-tslint.json
+.eslintrc
+.eslintignore
 yarn.lock
 .babelrc
 *.todo

@@ -1,19 +1,17 @@
-import { Test } from "./component";
-import { register, Module, helper } from "../../../src";
-import { State } from "./type";
-import { RootState } from "../../type";
-
-const { loading } = helper;
+import { Demo } from ".";
+import { Module, Loading, bindThis } from "../../resource";
+import { State } from "./state";
+import { store } from "../store";
 
 const initialState: State = {
     num: 0,
-    arr: []
+    arr: [],
 };
 
 const delay = (d: number) => new Promise(resolve => setTimeout(resolve, d));
 
-class TestMain extends Module<State, RootState> {
-    @loading("loading +1")
+class DemoModule extends Module<State> {
+    @Loading("loading +1")
     async add(numm: number) {
         console.log("==> jiashu", numm);
         const { num } = this.state;
@@ -21,20 +19,20 @@ class TestMain extends Module<State, RootState> {
         this.setState({ num: num + 1 });
     }
 
-    @loading("loading -1")
+    @Loading("loading -1")
     async minus() {
         const { num } = this.state;
         await delay(1000);
         this.setState({ num: num - 1 });
     }
 
-    @loading("loading reset")
+    @Loading("loading reset")
     async reset() {
         await delay(1000);
         this.resetState();
     }
 
-    @loading("push random number")
+    @Loading("push random number")
     async pushList() {
         const { arr } = this.state;
         await delay(1000);
@@ -42,16 +40,16 @@ class TestMain extends Module<State, RootState> {
     }
 
     async getRootState() {
-        await console.log(this.rootState);
+        await console.log(this.globalState);
     }
 
-    @loading("trigger error")
+    @Loading("trigger error")
     async error() {
         await delay(1000);
         throw new Error("发生异常");
     }
 }
 
-const actions = register(new TestMain("TestMain", initialState));
+const actions = bindThis(new DemoModule("demoModule", initialState, store));
 
-export { Test, actions };
+export { Demo as Test, actions };

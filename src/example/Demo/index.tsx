@@ -1,18 +1,17 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { RootState } from "../../../type";
-import { actions } from "../index";
-import { helper } from "../../../../src";
+import { GlobalState } from "src/resource";
+import { actions } from "./Module";
 
 interface StateProps {
-    state: RootState;
+    state: GlobalState;
     loading: boolean | undefined;
 }
 
 interface Props extends StateProps {}
 
-export class TestBase extends React.PureComponent<Props> {
-    render() {
+export class DemoBase extends React.PureComponent<Props> {
+    override render() {
         const { loading } = this.props;
         return (
             <div style={{ padding: 20 }}>
@@ -42,8 +41,8 @@ export class TestBase extends React.PureComponent<Props> {
     }
 }
 
-const mapStateToProps = (state: RootState): StateProps => {
-    return { state, loading: helper.getLoading("loading +1") };
+const mapStateToProps = (state: GlobalState): StateProps => {
+    return { state, loading: state["@@LOADING"]["loading +1"] };
 };
 
-export const Test = connect(mapStateToProps)(TestBase);
+export const Demo = connect(mapStateToProps)(DemoBase);

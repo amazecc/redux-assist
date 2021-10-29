@@ -1,3 +1,28 @@
 {
-    "extends": "./config/tsconfig.dev"
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "CommonJS",
+        "lib": ["esnext", "DOM"],
+        "removeComments": false,
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "resolveJsonModule": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "jsx": "react-jsx",
+        "suppressImplicitAnyIndexErrors": true,
+        "noImplicitReturns": true,
+        "isolatedModules": true,
+        "noImplicitOverride": true,
+        "exactOptionalPropertyTypes": true,
+        "baseUrl": ".",
+        "paths": {}
+    },
+    "exclude": ["node_modules"]
 }
